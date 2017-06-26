@@ -56,7 +56,15 @@
 
 			// Control de cursor
 			var controlCursor = new OpenLayers.Control.MousePosition();
-			map.addControl(controlCursor);			
+			map.addControl(controlCursor);		
+
+			/// Capa consumiendo servicio WMS
+			var nombreWMS = "Límites departamentales";
+			var urlWMS = "http://geo.gob.bo/geoserver/wms";
+			var propiedadesWMS = {
+				layers: 'universidades:id_aymara',
+				transparent: true
+			};			
 		}
 		// Cargamos la función init, para desplegar el mapa
 		window.onload = init;
