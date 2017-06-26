@@ -65,6 +65,38 @@
 				layers: 'universidades:id_aymara',
 				transparent: true
 			};			
+			
+			// Layer WMS desde geoserver Local
+			var layerEolico = new OpenLayers.Layer.WMS(
+				"Mapa Eólico",
+				"http://172.16.4.121:8080/geoserver/wms",
+				{
+					layers: 'curso-gis:EOLICO',
+					transparent: true
+				}
+			);
+			map.addLayer(layerEolico);
+			var layerJson = new OpenLayers.Layer.Vector(
+				"Capa Uyuni-json",
+				{
+					projection: new OpenLayers.Projection("EPSG:4326"),
+					strategies: [new OpenLayers.Strategy.Fixed()],
+					protocol: new OpenLayers.Protocol.HTTP({
+						url: './salar_uyuni.json',
+						format: new OpenLayers.Format.GeoJSON()
+					})
+				}
+			);
+			map.addLayer(layerJson);
+			// Configuración para mostrar la región de Bolivia
+			// Lon: -64.819336, Lat: -17.379999
+			var LonLat = new OpenLayers.LonLat(-64.819336, -17.379999);
+			var zoom = 5;
+			var LonLatTransformado = LonLat.transform(
+				new OpenLayers.Projection("EPSG:4326"),
+				map.getProjection() // new OpenLayers.Projection("EPSG:900913")
+			);
+			map.setCenter(LonLatTransformado, zoom);
 		}
 		// Cargamos la función init, para desplegar el mapa
 		window.onload = init;
