@@ -52,7 +52,11 @@
 			
 			// Control de cambio de Capas
 			var controlCapas = new OpenLayers.Control.LayerSwitcher();
-			map.addControl(controlCapas);			
+			map.addControl(controlCapas);	
+
+			// Control de cursor
+			var controlCursor = new OpenLayers.Control.MousePosition();
+			map.addControl(controlCursor);			
 		}
 		// Cargamos la función init, para desplegar el mapa
 		window.onload = init;
