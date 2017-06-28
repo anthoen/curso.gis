@@ -101,6 +101,16 @@
 				map.getProjection() // new OpenLayers.Projection("EPSG:900913")
 			);
 			map.setCenter(LonLatTransformado, zoom);
+			
+			// Layer WMS mapa Eolico desde PostGIS
+			var layerEolicoPG = new OpenLayers.Layer.WMS(
+				"Mapa Presas PostGIS",
+				host + ":8080/geoserver/wms",
+				{
+					layers: 'curso-gis:presas',
+					transparent: true
+				}
+			);
 		}
 		// Cargamos la función init, para desplegar el mapa
 		window.onload = init;
