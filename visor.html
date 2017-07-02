@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Visor Simple OpenLayers</title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
-	<script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE"
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE"
 	type="text/javascript"></script>
 	<style type="text/css">
 		html, body {
@@ -114,7 +114,11 @@
 			);
 			map.addLayer(layerEolicoPG);
 			layerEolicoPG.setVisibility(false);
+			
+			//usando un bounding box para encuadre personalizado por coordenadas
+			var regionBBox = new OpenLayers.Bounds
 		}
+		
 		// Cargamos la función init, para desplegar el mapa
 		window.onload = init;
 	</script>
