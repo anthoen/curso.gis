@@ -104,6 +104,36 @@
 			);
 			map.setCenter(LonLatTransformado, zoom);
 			
+			///////////////codigo pepa
+			var popup = null;
+			var iconImage = 'marker.png';
+			var size = new OpenLayers.Size(30, 30);
+			var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+			var marker, iconMarker, LonLat, text;
+			text = "<div style='font-size:13px;color:BLACK; font-family: Helvetica'><h5> " + "title" + "<br />" + "titletwo" + "<br /> " + "description" + " " + "place" + "</h5></div>";
+			iconMarker = new OpenLayers.Icon(iconImage, size, offset);
+			LonLat = new OpenLayers.LonLat(-68.12978,-16.50471).transform(new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection(new OpenLayers.Projection("EPSG:900913")));
+
+			marker = new OpenLayers.Marker(LonLat, iconMarker);
+			marker.events.register('click', marker, function () {
+			//this.icon.imageDiv.firstChild.setAttribute('src', 'imagenes/amarillo.png');
+            // popup  CON ESTA PROPIEDAD MOSTRAMOS UN MENSAJE AL MOMENTO DE HACER CLICK EN LOS MARCADORES 
+			popup = new OpenLayers.Popup.FramedCloud("Popup",
+            new OpenLayers.LonLat(-68.12978,-16.50471).transform(new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection("EPSG:900913")), null, text, null, true);
+			map.addPopup(popup);
+			map.setCenter(LonLat, 15);
+			});
+     
+			var markers = new OpenLayers.Layer.Markers("Reclamos", {
+            displayInLayerSwitcher: false,
+            isBaseLayer: false
+        });
+			map.addLayer(markers);
+			markers.addMarker(marker);
+			/////////////
+			
 			// Layer WMS mapa presas desde PostGIS
 			var layerPresasPG = new OpenLayers.Layer.WMS(
 				"Mapa Presas PostGIS",
@@ -129,14 +159,7 @@
 			layerEolicoPG.setVisibility(false);
 			
 			//agregando un marker al mapa
-			var markers = new OpenLayers.Layer.Markers( "Markers" );
 			
-
-			var size = new OpenLayers.Size(21,25);
-			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-			var icon = new OpenLayers.Icon('img/marker.png', size, offset);
-			markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(-64.819336, -17.379999),icon));
-			map.addLayer(markers);			
 			//usando un bounding box para encuadre personalizado por coordenadas
 			//var regionBBox = new OpenLayers.Bounds
 		}
