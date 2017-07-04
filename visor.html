@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>Visor Simple OpenLayers</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE"
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/theme/default/style.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/openlayers/2.12/OpenLayers.js"></script>
+	<script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyAWGV-uEDtw1I-Oo3jOEaWhd9rTifR_0VE"
 	type="text/javascript"></script>
 	<style type="text/css">
 		html, body {
@@ -81,6 +81,7 @@
 				}
 			);
 			map.addLayer(layerEolico);
+			//geojson salar_uyuni
 			var layerJson = new OpenLayers.Layer.Vector(
 				"Capa Uyuni-json",
 				{
@@ -103,12 +104,24 @@
 			);
 			map.setCenter(LonLatTransformado, zoom);
 			
+			// Layer WMS mapa presas desde PostGIS
+			var layerPresasPG = new OpenLayers.Layer.WMS(
+				"Mapa Presas PostGIS",
+				host + ":8080/geoserver/wms",
+				{
+					layers: 'curso-gis:presas',
+					transparent: true
+				}
+			);
+			map.addLayer(layerPresasPG);
+			layerPresasPG.setVisibility(false);
+			
 			// Layer WMS mapa Eolico desde PostGIS
 			var layerEolicoPG = new OpenLayers.Layer.WMS(
 				"Mapa Presas PostGIS",
 				host + ":8080/geoserver/wms",
 				{
-					layers: 'curso-gis:presas',
+					layers: 'curso-gis:eolico',
 					transparent: true
 				}
 			);
