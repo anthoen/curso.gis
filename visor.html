@@ -22,8 +22,8 @@
 			margin-top: 0;
 		}
 		#mapa{
-			height: 300px;
-			width: 600px;
+			height: 90%;
+			width: 95%;
 			border: solid 3px darkblue;
 		}
 		
@@ -107,15 +107,23 @@
 			///////////////codigo pepa
 			var popup = null;
 			var iconImage = 'marker.png';
+			var iconImage2 = 'img/person.png';
 			var size = new OpenLayers.Size(30, 30);
 			var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
 			var marker, iconMarker,iconMarker2, LonLat, text;
 			text = "<div style='font-size:13px;color:BLACK; font-family: Helvetica'><h5> " + "title" + "<br />" + "titletwo" + "<br /> " + "description" + " " + "place" + "</h5></div>";
 			iconMarker = new OpenLayers.Icon(iconImage, size, offset);
 			iconMarker2 = new OpenLayers.Icon(iconImage, size, offset);
+			iconMarker3 = new OpenLayers.Icon(iconImage2, size, offset);
+			iconMarker4 = new OpenLayers.Icon(iconImage2, size, offset);
 			LonLat = new OpenLayers.LonLat(-68.12978,-16.50471).transform(new OpenLayers.Projection("EPSG:4326"),
 			new OpenLayers.Projection(new OpenLayers.Projection("EPSG:900913")));
 			LonLat2 = new OpenLayers.LonLat(-67.12978,-17.50471).transform(new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection(new OpenLayers.Projection("EPSG:900913")));
+			
+			LonLat3 = new OpenLayers.LonLat(-68.45978,-16.45471).transform(new OpenLayers.Projection("EPSG:4326"),
+			new OpenLayers.Projection(new OpenLayers.Projection("EPSG:900913")));
+			LonLat4 = new OpenLayers.LonLat(-67.34978,-17.34471).transform(new OpenLayers.Projection("EPSG:4326"),
             new OpenLayers.Projection(new OpenLayers.Projection("EPSG:900913")));
 			
 			
@@ -144,8 +152,31 @@
 				map.setCenter(LonLat2, 15);
 			});
 			
+			marker3 = new OpenLayers.Marker(LonLat3, iconMarker3);
+			marker3.events.register('click', marker3, function () 
+			{
+				//this.icon.imageDiv.firstChild.setAttribute('src', 'imagenes/amarillo.png');
+				// popup  CON ESTA PROPIEDAD MOSTRAMOS UN MENSAJE AL MOMENTO DE HACER CLICK EN LOS MARCADORES 
+				popup = new OpenLayers.Popup.FramedCloud("Postgrado Informatica",
+				new OpenLayers.LonLat(-68.45978,-16.45471).transform(new OpenLayers.Projection("EPSG:4326"),
+				new OpenLayers.Projection("EPSG:900913")), null, "Mi primer marcador persona", null, true);
+				map.addPopup(popup);
+				map.setCenter(LonLat3, 15);
+			});
+			
+			marker4 = new OpenLayers.Marker(LonLat4, iconMarker4);
+			marker4.events.register('click', marker4, function () 
+			{
+				//this.icon.imageDiv.firstChild.setAttribute('src', 'imagenes/amarillo.png');
+				// popup  CON ESTA PROPIEDAD MOSTRAMOS UN MENSAJE AL MOMENTO DE HACER CLICK EN LOS MARCADORES 
+				popup = new OpenLayers.Popup.FramedCloud("Postgrado Informatica",
+				new OpenLayers.LonLat(-68.45978,-16.45471).transform(new OpenLayers.Projection("EPSG:4326"),
+				new OpenLayers.Projection("EPSG:900913")), null, "Mi segundo marcador persona", null, true);
+				map.addPopup(popup);
+				map.setCenter(LonLat4, 15);
+			});
 			    
-			var markers = new OpenLayers.Layer.Markers("Reclamos", 
+			var markers = new OpenLayers.Layer.Markers("marker verde", 
 			{
 				displayInLayerSwitcher: true,
 				isBaseLayer: false
@@ -153,6 +184,15 @@
 			map.addLayer(markers);
 			markers.addMarker(marker);
 			markers.addMarker(marker2);
+			
+			var markers2 = new OpenLayers.Layer.Markers("marker persona", 
+			{
+				displayInLayerSwitcher: true,
+				isBaseLayer: false
+			});
+			map.addLayer(markers2);
+			markers2.addMarker(marker3);
+			markers2.addMarker(marker4);
 			
 			/////////////
 			
