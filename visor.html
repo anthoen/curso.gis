@@ -128,8 +128,17 @@
 			map.addLayer(layerEolicoPG);
 			layerEolicoPG.setVisibility(false);
 			
+			//agregando un marker al mapa
+			var markers = new OpenLayers.Layer.Markers( "Markers" );
+			
+
+			var size = new OpenLayers.Size(21,25);
+			var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+			var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
+			markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(-64.819336, -17.379999),icon));
+			map.addLayer(markers);			
 			//usando un bounding box para encuadre personalizado por coordenadas
-			var regionBBox = new OpenLayers.Bounds
+			//var regionBBox = new OpenLayers.Bounds
 		}
 		
 		// Cargamos la función init, para desplegar el mapa
